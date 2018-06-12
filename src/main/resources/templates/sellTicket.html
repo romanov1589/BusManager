@@ -1,43 +1,45 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <title>Sell Ticket</title>
+    <title>Sell ticket</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
 </head>
-<body ng-app="app">
-<div class="container" ng-controller="SellTicketController">
-    <div class="panel panel-default">
-        <div class="panel-heading"><span class="lead">Sell Ticket</span></div>
-        <div class="formcontainer">
-            <form name="ticketForm" ng-submit="sellTicket()" novalidate="novalidate">
-                <p><b>Arrival</b></p>
-                <input type="text" name="arrival" class="form-control" ng-model="arrival"/>
-                <p><b>Departure</b></p>
-                <input type="text" name="departure" class="form-control" ng-model="departure"/>
-                <p><b>Price</b></p>
-                <input type="text" name="price" class="form-control" ng-model="price"/>
-                <p><b>First Name</b></p>
-                <input type="text" name="firstName" class="form-control" ng-model="firstName"/>
-                <p><b>Last Name</b></p>
-                <input type="text" name="lastName" class="form-control" ng-model="lastName"/>
-                <p><b>Phone number</b></p>
-                <input type="text" name="phoneNumber" class="form-control" ng-model="phoneNumber"/>
-                <p><b>Email</b></p>
-                <input type="email" name="clientEmail" class="form-control" ng-model="clientEmail"/>
-
-                <div class="btn-group pull-right">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a th:href="@{/routes}" class="btn btn-danger">Cancel</a>
-                </div>
-            </form>
-        </div>
-    </div>
+<body>
+<h3>Create new ticket</h3>
+<div class="col-md-4">
+    <form th:object="${ticket}" th:action="@{saveticket}" method="post">
+        <input type="text" th:field="*{arrivalBusStop}" class="form-control"
+               placeholder="Arrival"/>
+        <span th:errors="*{arrivalBusStop}" class="error"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{departureBusStop}" class="form-control"
+               placeholder="Departure"/>
+        <span th:errors="*{departureBusStop}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{price}" class="form-control"
+               placeholder="Price"/>
+        <span th:errors="*{price}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{clientFirstName}" class="form-control"
+               placeholder="First Name"/>
+        <span th:errors="*{clientFirstName}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{clientLastName}" class="form-control"
+               placeholder="Last Name"/>
+        <span th:errors="*{clientLastName}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{clientPhone}" class="form-control"
+               placeholder="Phone number"/>
+        <span th:errors="*{clientPhone}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="email" th:field="*{clientEmail}" class="form-control"
+               placeholder="Email"/>
+        <span th:errors="*{clientEmail}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="submit" class="btn btn-success" value="Save"></input>
+        <a href="/routes" class="btn btn-danger">Cancel</a>
+    </form>
 </div>
-
-
-<script src="js/angular.min.js"></script>
-<script src="js/sellTicket.js"></script>
 </body>
 </html>

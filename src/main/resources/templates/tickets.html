@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <title>Tickets</title>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">Tickets List</span>
+            <a th:href="@{/routes}" class="btn btn-primary pull-right">Go Back</a>
+        </div>
+        <div class="routes-container">
+            <table class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th>Route</th>
+                    <th>Arrival</th>
+                    <th>Departure</th>
+                    <th>price</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+                <tr th:each = "ticket : ${tickets}">
+                    <td th:text="${ticket.ticketId}"></td>
+                    <td th:text="${ticket.route.name}"></td>
+                    <td th:text="${ticket.arrivalBusStop}"></td>
+                    <td th:text="${ticket.departureBusStop}"></td>
+                    <td th:text="${ticket.price}"></td>
+                    <td th:text="${ticket.clientFirstName}"></td>
+                    <td th:text="${ticket.clientLastName}"></td>
+                    <td th:text="${ticket.clientPhone}"></td>
+                    <td th:text="${ticket.clientEmail}"></td>
+                    <td th:text="${ticket.route.routeDate}"></td>
+                    <td th:text="${ticket.status}"></td>
+                    <td>
+                        <a th:href="@{tickets/changestatus/{id}(id=${ticket.ticketId})}" class="btn btn-warning
+                            pull-right">Change Status</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/deleteticket/{id}(id=${ticket.ticketId})}" class="btn btn-danger pull-left"
+                           onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="js/angular.min.js"></script>
+<script src="js/routes.js"></script>
+</body>
+</html>

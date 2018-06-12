@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add route</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+<h3>Create new route</h3>
+<div class="col-md-4">
+    <form th:object="${route}" th:action="@{saveroute}" method="post">
+        <input type="text" th:field="*{name}" class="form-control"
+               placeholder="Route name"/>
+        <span th:errors="*{name}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{routeDate}" class="form-control"
+               placeholder="YYYY/MM/DD"/>
+        <span th:errors="*{routeDate}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="number" th:field="*{maxSeatsLimit}" class="form-control"/>
+        <span th:errors="*{maxSeatsLimit}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="number" th:field="*{seatsLeft}" class="form-control"/>
+        <span th:errors="*{seatsLeft}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="submit" class="btn btn-success" value="Save"></input>
+        <a href="/routes" class="btn btn-danger">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,27 +1,103 @@
 package com.romanov.BusManager.controller;
 
 import com.romanov.BusManager.model.Route;
+import com.romanov.BusManager.model.Ticket;
 import com.romanov.BusManager.repository.RouteRepository;
+import com.romanov.BusManager.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class RouteController {
+
+    public Route route;
 
     @Autowired
     private RouteRepository routeRepository;
 
-    @GetMapping(value = "/allroutes")
-    public List<Route> getRoutes(){
-        return routeRepository.findAll();
+    @Autowired
+    private TicketRepository ticketRepository;
+
+    @GetMapping(value = "/routes")
+    public String getRoutes(Model model) {
+        List<Route> routes = routeRepository.findAll();
+        model.addAttribute("routes", routes);
+        return "routes";
     }
 
-    @GetMapping(value = "/allroutes/{id}")
-    public Route getRoute(@PathVariable("id") Integer id){
-        return routeRepository.findByRouteId(id);
+    @GetMapping(value = "/routes/{id}")
+    public String sellTicketToRoute(@PathVariable("id") Integer id, Model model) {
+        route = routeRepository.findByRouteId(id);
+        model.addAttribute("ticket", new Ticket());
+        return "sellTicket";
     }
+
+    @RequestMapping(value = "/routes/saveticket")
+    public String saveTicket(@ModelAttribute @Valid Ticket ticket, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "sellTicket";
+        }
+        ticket.setRoute(route);
+        ticket.setStatus("sold");
+        ticketRepository.save(ticket);
+        return "redirect:/tickets";
+    }
+
+    @GetMapping(value = "/addroute")
+    public String addRoute(Model model) {
+        model.addAttribute("route", new Route());
+        return "addRoute";
+    }
+
+    @PostMapping(value = "/saveroute")
+    public String saveRoute(@ModelAttribute @Valid Route route, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "addroute";
+        } else if (route.getMaxSeatsLimit() < route.getSeatsLeft()) {
+            bindingResult.getFieldError("Error!");
+            return "addroute";
+        }
+        routeRepository.save(route);
+        return "redirect:/routes";
+
+    }
+
+    @GetMapping(value = "/deleteroute/{id}")
+    public String removeRoute(@PathVariable("id") Integer id) {
+        routeRepository.deleteById(id);
+        return "redirect:/routes";
+    }
+
+    @GetMapping(value = "/tickets")
+    public String getTickets(Model model) {
+        List<Ticket> tickets = ticketRepository.findAll();
+        model.addAttribute("tickets", tickets);
+        return "tickets";
+    }
+
+    @GetMapping(value = "/tickets/changestatus/{id}")
+    public String changeTicketStatus(@PathVariable("id") Integer id) {
+        Ticket ticket = ticketRepository.findTicketByTicketId(id);
+        if (ticket.getStatus().equals("sold")) {
+            ticket.setStatus("cancelled");
+        } else if (ticket.getStatus().equals("cancelled")) {
+            ticket.setStatus("sold");
+        }
+        ticketRepository.save(ticket);
+        return "redirect:/tickets";
+    }
+
+    @GetMapping(value = "/deleteticket/{id}")
+    public String removeTicket(@PathVariable("id") Integer id) {
+        ticketRepository.deleteById(id);
+        return "redirect:/tickets";
+    }
+
 }

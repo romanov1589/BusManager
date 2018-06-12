@@ -1,8 +1,6 @@
 package com.romanov.BusManager.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,9 +25,8 @@ public class Ticket {
     @Size(min = 2, max = 25)
     private String clientPhone;
     private String clientEmail;
-    @NotNull
-    @Size(min = 2, max = 9)
     private String status;
+    private Route route;
 
     public Ticket(String arrivalBusStop, String departureBusStop, double price,
                   String clientFirstName, String clientLastName, String clientPhone, String clientEmail, String status) {
@@ -45,6 +42,7 @@ public class Ticket {
 
     public Ticket() {
     }
+
     @Id
     @GeneratedValue
     public int getTicketId() {
@@ -117,5 +115,15 @@ public class Ticket {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "fk_route")
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
     }
 }

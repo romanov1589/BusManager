@@ -9,7 +9,12 @@
 <body ng-app="app">
 <div class="container" ng-controller="RoutesController">
     <div class="panel panel-default">
-        <div class="panel-heading"><span class="lead">Routes List</span></div>
+        <div class="panel-heading"><span class="lead">Routes List
+            <div class="btn-group pull-right">
+                <a href="/addroute" class="btn btn-primary">Add Route</a>
+                <a href="/tickets" class="btn btn-primary">Tickets</a>
+            </div>
+        </span></div>
             <div class="routes-container">
                 <table class="table table-hover">
                     <tr>
@@ -19,19 +24,18 @@
                         <th>Seats Limit</th>
                         <th>SeatsLeft</th>
                     </tr>
-                    <tr ng-repeat="route in routes">
-                        <td>{{route.routeId}}</td>
-                        <td>{{route.name}}</td>
-                        <td>{{route.routeDate}}</td>
-                        <td>{{route.maxSeatsLimit}}</td>
-                        <td>{{route.seatsLeft}}</td>
+                    <tr th:each = "route : ${routes}">
+                        <td th:text="${route.routeId}"></td>
+                        <td th:text="${route.name}"></td>
+                        <td th:text="${route.routeDate}"></td>
+                        <td th:text="${route.maxSeatsLimit}"></td>
+                        <td th:text="${route.seatsLeft}"></td>
                         <td>
-                            <a th:href="@{/sellticket/{{route.routeId}}}" class="btn btn-success">Sell Ticket</a>
+                            <a th:href="@{routes/{id}(id=${route.routeId})}" class="btn btn-success pull-right">Sell Ticket</a>
                         </td>
                         <td>
-                            <div class="btn-group pull-right">
-                                <a ng-click="deleteFirm(route)" class="btn btn-small btn-danger">Delete</a>
-                            </div>
+                            <a th:href="@{/deleteroute/{id}(id=${route.routeId})}" class="btn btn-danger pull-left"
+                               onclick="return confirm('Are you sure?');">Delete</a>
                         </td>
                     </tr>
                 </table>
