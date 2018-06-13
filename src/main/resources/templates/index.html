@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Bus Manager</title>
 </head>
 <body>
@@ -12,5 +13,7 @@
         <a th:href="@{/routes}" class="btn btn-success">Let's start</a>
     </div>
 </div>
+
+<script src="js/angular.min.js"></script>
 </body>
 </html>

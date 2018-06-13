@@ -3,19 +3,20 @@
 <head>
     <title>Sell ticket</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <h3>Create new ticket</h3>
 <div class="col-md-4">
     <form th:object="${ticket}" th:action="@{saveticket}" method="post">
-        <input type="text" th:field="*{arrivalBusStop}" class="form-control"
-               placeholder="Arrival"/>
-        <span th:errors="*{arrivalBusStop}" class="error"></span>
-        <div style="clear: both; display: block; height: 10px;"></div>
         <input type="text" th:field="*{departureBusStop}" class="form-control"
                placeholder="Departure"/>
         <span th:errors="*{departureBusStop}" class="error text-danger"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input type="text" th:field="*{arrivalBusStop}" class="form-control"
+               placeholder="Arrival"/>
+        <span th:errors="*{arrivalBusStop}" class="error"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
         <input type="text" th:field="*{price}" class="form-control"
                placeholder="Price"/>
@@ -41,5 +42,7 @@
         <a href="/routes" class="btn btn-danger">Cancel</a>
     </form>
 </div>
+
+<script src="js/angular.min.js"></script>
 </body>
 </html>

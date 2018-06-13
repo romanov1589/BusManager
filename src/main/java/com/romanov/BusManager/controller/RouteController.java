@@ -75,29 +75,17 @@ public class RouteController {
         return "redirect:/routes";
     }
 
-    @GetMapping(value = "/tickets")
-    public String getTickets(Model model) {
-        List<Ticket> tickets = ticketRepository.findAll();
-        model.addAttribute("tickets", tickets);
-        return "tickets";
-    }
-
-    @GetMapping(value = "/tickets/changestatus/{id}")
-    public String changeTicketStatus(@PathVariable("id") Integer id) {
-        Ticket ticket = ticketRepository.findTicketByTicketId(id);
-        if (ticket.getStatus().equals("sold")) {
-            ticket.setStatus("cancelled");
-        } else if (ticket.getStatus().equals("cancelled")) {
-            ticket.setStatus("sold");
-        }
-        ticketRepository.save(ticket);
-        return "redirect:/tickets";
-    }
-
     @GetMapping(value = "/deleteticket/{id}")
     public String removeTicket(@PathVariable("id") Integer id) {
         ticketRepository.deleteById(id);
         return "redirect:/tickets";
+    }
+
+    @GetMapping(value = "/routes/{id}/tickets")
+    public String getTicketsByRoute(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("route", routeRepository.findByRouteId(id));
+        model.addAttribute("tickets", routeRepository.findByRouteId(id).getTickets());
+        return "routeTickets";
     }
 
 }

@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Routes</title>
 </head>
 <body ng-app="app">
@@ -34,9 +34,13 @@
                             <a th:href="@{routes/{id}(id=${route.routeId})}" class="btn btn-success pull-right">Sell Ticket</a>
                         </td>
                         <td>
+                            <a th:href="@{routes/{id}/tickets(id=${route.routeId})}" class="btn btn-success pull-right">Tickets</a>
+                        </td>
+                        <td>
                             <a th:href="@{/deleteroute/{id}(id=${route.routeId})}" class="btn btn-danger pull-left"
                                onclick="return confirm('Are you sure?');">Delete</a>
                         </td>
+
                     </tr>
                 </table>
             </div>
@@ -44,6 +48,5 @@
     </div>
 
 <script src="js/angular.min.js"></script>
-<script src="js/routes.js"></script>
 </body>
 </html>
