@@ -1,7 +1,11 @@
 package com.romanov.BusManager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -9,23 +13,26 @@ public class Ticket {
 
     private int ticketId;
     @NotNull
-    @Size(min = 2, max = 40)
+    @Size(min = 2, max = 40, message = "Please fill out the field Arrival. Field should be between 2 and 40 string size")
     private String arrivalBusStop;
     @NotNull
-    @Size(min = 2, max = 40)
+    @Size(min = 2, max = 40, message = "Please fill out the field Departure. Field should be between 2 and 40 string size")
     private String departureBusStop;
     private double price;
     @NotNull
-    @Size(min = 2, max = 40)
+    @Size(min = 2, max = 40, message = "Please fill out the field First name. Field should be between 2 and 40 string size")
     private String clientFirstName;
     @NotNull
-    @Size(min = 2, max = 40)
+    @Size(min = 2, max = 40, message = "Please fill out the field Last name.Field should be between 2 and 40 string size")
     private String clientLastName;
     @NotNull
-    @Size(min = 2, max = 25)
+    @Size(min = 2, max = 25, message = "Please fill out the field Phone number. Field should be between 2 and 25 string size")
     private String clientPhone;
+    @Email(message="Please provide a valid email address")
+    @Pattern(regexp=".+@.+\\..+", message="Please provide a valid email address")
     private String clientEmail;
     private String status;
+    @JsonIgnore
     private Route route;
 
     public Ticket(String arrivalBusStop, String departureBusStop, double price,

@@ -1,5 +1,7 @@
 package com.romanov.BusManager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -20,6 +22,10 @@ public class Route {
     private int maxSeatsLimit;
     private int seatsLeft;
     private Set<Ticket> tickets = new HashSet<>();
+    @JsonIgnore
+    private Set<Bus> buses = new HashSet<>();
+    @JsonIgnore
+    private Set<BusStopRoute> busStopRouteSet = new HashSet<>();
 
     public Route(String name, String routeDate, int maxSeatsLimit, int seatsLeft) {
         this.name = name;
@@ -80,5 +86,23 @@ public class Route {
 
     public void setTickets(Set<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    @ManyToMany(mappedBy = "routes")
+    public Set<Bus> getBuses() {
+        return buses;
+    }
+
+    public void setBuses(Set<Bus> buses) {
+        this.buses = buses;
+    }
+
+    @OneToMany(mappedBy = "route")
+    public Set<BusStopRoute> getBusStopRouteSet() {
+        return busStopRouteSet;
+    }
+
+    public void setBusStopRouteSet(Set<BusStopRoute> busStopRouteSet) {
+        this.busStopRouteSet = busStopRouteSet;
     }
 }

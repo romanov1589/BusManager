@@ -10,17 +10,21 @@
 <h3>Create new route</h3>
 <div class="col-md-4">
     <form th:object="${route}" th:action="@{saveroute}" method="post">
+        <label>Route name</label>
         <input type="text" th:field="*{name}" class="form-control"
                placeholder="Route name"/>
         <span th:errors="*{name}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Route date</label>
         <input type="text" th:field="*{routeDate}" class="form-control"
                placeholder="YYYY/MM/DD"/>
         <span th:errors="*{routeDate}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Seats limit</label>
         <input type="number" th:field="*{maxSeatsLimit}" class="form-control"/>
         <span th:errors="*{maxSeatsLimit}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Seats left</label>
         <input type="number" th:field="*{seatsLeft}" class="form-control"/>
         <span th:errors="*{seatsLeft}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>

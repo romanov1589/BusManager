@@ -10,31 +10,38 @@
 <h3>Create new ticket</h3>
 <div class="col-md-4">
     <form th:object="${ticket}" th:action="@{saveticket}" method="post">
+        <label>Departure</label>
         <input type="text" th:field="*{departureBusStop}" class="form-control"
                placeholder="Departure"/>
         <span th:errors="*{departureBusStop}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Arrival</label>
         <input type="text" th:field="*{arrivalBusStop}" class="form-control"
                placeholder="Arrival"/>
-        <span th:errors="*{arrivalBusStop}" class="error"></span>
+        <span th:errors="*{arrivalBusStop}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Price</label>
         <input type="text" th:field="*{price}" class="form-control"
                placeholder="Price"/>
         <span th:errors="*{price}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>First name</label>
         <input type="text" th:field="*{clientFirstName}" class="form-control"
                placeholder="First Name"/>
         <span th:errors="*{clientFirstName}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Last name</label>
         <input type="text" th:field="*{clientLastName}" class="form-control"
                placeholder="Last Name"/>
         <span th:errors="*{clientLastName}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
+        <label>Phone number</label>
         <input type="text" th:field="*{clientPhone}" class="form-control"
                placeholder="Phone number"/>
         <span th:errors="*{clientPhone}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
-        <input type="email" th:field="*{clientEmail}" class="form-control"
+        <label>Email</label>
+        <input type="text" th:field="*{clientEmail}" class="form-control"
                placeholder="Email"/>
         <span th:errors="*{clientEmail}" class="error text-danger"></span>
         <div style="clear: both; display: block; height: 10px;"></div>
